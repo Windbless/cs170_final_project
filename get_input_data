@@ -1,0 +1,19 @@
+def loadsparsedata(fn):
+    
+    fp = open(fn,"r")
+    lines = fp.readlines()
+    maxf = 0;
+    for line in lines:
+        for i in line.split()[1::2]:
+            maxf = max(maxf,int(i))
+    
+    X = np.zeros((len(lines),maxf))
+    Y = np.zeros((len(lines)))
+    
+    for i, line in enumerate(lines):
+        values = line.split()
+        Y[i] = int(values[0])
+        for j,v in zip(values[1::2],values[2::2]):
+            X[i,int(j)-1] = int(v)
+    
+    return X,Y
